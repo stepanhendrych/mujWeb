@@ -1,3 +1,10 @@
+/* CSS Reset - zrušit všechny defaulty */
+* {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
 @font-face {
   font-family: "PixelOperator8";
   src: url("fonts/PixelOperator8.ttf") format("truetype");

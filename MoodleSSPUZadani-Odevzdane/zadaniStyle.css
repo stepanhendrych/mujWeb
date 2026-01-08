@@ -134,11 +134,11 @@ body {
 }
 
 .name {
-  background: linear-gradient(90deg, var(--accent), var(--accent-2));
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  color: transparent;
+	background: linear-gradient(90deg,var(--accent),var(--accent-2));
+	background-clip: text;
+	-webkit-background-clip: text;
+	color: transparent !important;
+	-webkit-text-fill-color: transparent !important;
 }
 
 .tag {

@@ -32,12 +32,15 @@
 * {
   box-sizing: border-box;
 }
+
 html,
 body {
   height: 100%;
   margin: 0;
   font-family: "PixelOperator8", "Segoe UI", Arial, sans-serif;
+  color-scheme: dark;
 }
+
 body {
   background: radial-gradient(ellipse at bottom, var(--bg-2) 0%, #000 60%);
   color: #e6eef8;
@@ -141,11 +144,15 @@ body {
 }
 
 .name {
+	font-size: 4rem;
+	margin: 0 0 10px;
+	letter-spacing: 1px;
 	background: linear-gradient(90deg,var(--accent),var(--accent-2));
 	background-clip: text;
 	-webkit-background-clip: text;
 	color: transparent !important;
 	-webkit-text-fill-color: transparent !important;
+	color-scheme: only light;
 }
 
 .tag {

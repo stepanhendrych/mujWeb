@@ -57,8 +57,39 @@ function highlightActiveLink() {
 	});
 }
 
+// Collapsible nav
+function initNavToggle() {
+	const toggle = document.querySelector('.nav-toggle');
+	const links = document.querySelector('.nav-links');
+	if (!toggle || !links) return;
+
+	toggle.addEventListener('click', () => {
+		const isOpen = links.classList.toggle('open');
+		toggle.setAttribute('aria-expanded', String(isOpen));
+	});
+
+	links.querySelectorAll('a').forEach(a => {
+		a.addEventListener('click', () => {
+			links.classList.remove('open');
+			toggle.setAttribute('aria-expanded', 'false');
+		});
+	});
+
+	// close menu when user scrolls down the page
+	let lastScroll = window.scrollY;
+	window.addEventListener('scroll', () => {
+		const current = window.scrollY;
+		if (current > lastScroll + 10 && links.classList.contains('open')) {
+			links.classList.remove('open');
+			toggle.setAttribute('aria-expanded', 'false');
+		}
+		lastScroll = current;
+	});
+}
+
 // Initialize when DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
 	initStarfield();
 	highlightActiveLink();
+	initNavToggle();
 });

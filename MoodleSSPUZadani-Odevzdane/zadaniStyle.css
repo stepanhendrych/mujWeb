@@ -137,12 +137,11 @@ body {
   font-size: 4rem;
   margin: 0 0 10px;
   letter-spacing: 1px;
-  text-shadow: 0 8px 40px rgba(0, 0, 0, 0.85);
   background: linear-gradient(90deg, var(--accent), var(--accent-2));
-  background-clip: text;
   -webkit-background-clip: text;
-  color: transparent;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
+  color: transparent;
 }
 
 .tag {

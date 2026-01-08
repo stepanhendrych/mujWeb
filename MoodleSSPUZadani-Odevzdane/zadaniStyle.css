@@ -303,15 +303,17 @@ article li {
   #starfield {
     opacity: 0.9;
   }
-  .name {
-    transition: none;
-  }
 }
 
 /* responsive tweaks */
 @media (max-width: 600px) {
   .name {
     font-size: 2.2rem;
+    background: linear-gradient(90deg, var(--accent), var(--accent-2));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
   }
   .nav {
     padding: 0;

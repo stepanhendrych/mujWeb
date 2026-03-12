@@ -13,35 +13,297 @@
 
     <header class="site-header">
         <nav class="nav">
-            <a class="logo" href="#">Henyx</a>
+            <a class="logo" href="#hero">Henyx</a>
+            <button class="nav-toggle" aria-label="Otevřít menu" aria-expanded="false">
+                <span></span><span></span><span></span>
+            </button>
+            <div class="nav-links">
+                <a href="#about">O mně</a>
+                <a href="#skills">Dovednosti</a>
+                <a href="#projects">Projekty</a>
+                <a href="#gadgets">Widgety</a>
+                <a href="#contact">Kontakt</a>
+            </div>
         </nav>
     </header>
 
-    <main class="content coming-soon">
-        <section class="hero">
-            <h1 class="name">Pracuji na webu</h1>
-            <p class="tag">More <span class="very">very</span> <span class="very">very</span> soon<span
-                    class="tm">™</span></p>
+    <main class="content">
 
-            <div class="progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="45">
-                <div class="bar" style="width:45%"></div>
+        <!-- ═══════════════════ HERO ═══════════════════ -->
+        <section id="hero" class="hero">
+            <p class="hero-eyebrow">Ahoj, jsem</p>
+            <h1 class="name">Štěpán Hendrych</h1>
+            <p class="tag">
+                IT student&nbsp;&amp;&nbsp;<span class="typewriter" id="typewriter"></span>
+            </p>
+            <p class="note">Budoucí vývojář. Miluji temné rozhraní, čistý kód a kafe. A banán na pizzu nepatří.&nbsp;c:</p>
+            <div class="hero-cta">
+                <a class="btn btn--primary" href="#projects">Moje projekty</a>
+                <a class="btn btn--ghost" href="#contact">Kontakt</a>
             </div>
+            <div class="scroll-hint" aria-hidden="true">↓</div>
+        </section>
 
-            <p class="note">A banán na pizzu nepatří. c:</p>
-
-            <div class="discord-embed">
-                <div class="discord-embed__header">
-                    <span class="discord-embed__title">Discord</span>
-                    <span class="discord-embed__hint">třídní server</span>
+        <!-- ═══════════════════ O MNĚ ═══════════════════ -->
+        <section id="about" class="section">
+            <h2 class="section-title">O mně</h2>
+            <div class="about-grid">
+                <div class="about-avatar placeholder-avatar" aria-label="Placeholder pro profilovou fotku">
+                    <span>📸</span>
+                    <small>Foto brzy</small>
                 </div>
-                <iframe src="https://discord.com/widget?id=1414512026885034037&theme=dark" width="350" height="500"
-                    allowtransparency="true" frameborder="0"
-                    sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts">
-                </iframe>
+                <div class="about-text panel">
+                    <p>
+                        Jsem student IT oboru na střední škole a zajímám se o webový vývoj, sítě a kybernetiku.
+                        Rád experimentuji s novými technologiemi a stavím projekty ve volném čase.
+                    </p>
+                    <p class="placeholder-note">✏️ <em>Placeholder — doplň svůj vlastní text zde.</em></p>
+                    <ul class="about-facts">
+                        <li>📍 Česká republika</li>
+                        <li>🎓 IT Student</li>
+                        <li>💻 Web, Sítě, Bezpečnost</li>
+                        <li>🌙 Night-mode enthusiast</li>
+                    </ul>
+                </div>
             </div>
         </section>
-    </main>
 
+        <!-- ═══════════════════ DOVEDNOSTI ═══════════════════ -->
+        <section id="skills" class="section">
+            <h2 class="section-title">Tech Stack &amp; Dovednosti</h2>
+            <p class="section-sub placeholder-note">✏️ <em>Uprav úrovně dovedností dle svého.</em></p>
+            <div class="skills-grid">
+                <div class="skill-card">
+                    <span class="skill-icon">🌐</span>
+                    <span class="skill-name">HTML / CSS</span>
+                    <div class="skill-bar" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100">
+                        <div class="skill-fill" style="--pct:80%"></div>
+                    </div>
+                </div>
+                <div class="skill-card">
+                    <span class="skill-icon">⚡</span>
+                    <span class="skill-name">JavaScript</span>
+                    <div class="skill-bar" role="progressbar" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100">
+                        <div class="skill-fill" style="--pct:65%"></div>
+                    </div>
+                </div>
+                <div class="skill-card">
+                    <span class="skill-icon">🐍</span>
+                    <span class="skill-name">Python</span>
+                    <div class="skill-bar" role="progressbar" aria-valuenow="55" aria-valuemin="0" aria-valuemax="100">
+                        <div class="skill-fill" style="--pct:55%"></div>
+                    </div>
+                </div>
+                <div class="skill-card">
+                    <span class="skill-icon">🗄️</span>
+                    <span class="skill-name">SQL / Databáze</span>
+                    <div class="skill-bar" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
+                        <div class="skill-fill" style="--pct:50%"></div>
+                    </div>
+                </div>
+                <div class="skill-card">
+                    <span class="skill-icon">🐧</span>
+                    <span class="skill-name">Linux / CLI</span>
+                    <div class="skill-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100">
+                        <div class="skill-fill" style="--pct:60%"></div>
+                    </div>
+                </div>
+                <div class="skill-card">
+                    <span class="skill-icon">🔀</span>
+                    <span class="skill-name">Git / GitHub</span>
+                    <div class="skill-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100">
+                        <div class="skill-fill" style="--pct:70%"></div>
+                    </div>
+                </div>
+                <div class="skill-card">
+                    <span class="skill-icon">🌐</span>
+                    <span class="skill-name">Sítě (Cisco)</span>
+                    <div class="skill-bar" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100">
+                        <div class="skill-fill" style="--pct:45%"></div>
+                    </div>
+                </div>
+                <div class="skill-card skill-card--placeholder">
+                    <span class="skill-icon">➕</span>
+                    <span class="skill-name placeholder-note">Přidej vlastní</span>
+                    <div class="skill-bar">
+                        <div class="skill-fill" style="--pct:0%"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ═══════════════════ PROJEKTY ═══════════════════ -->
+        <section id="projects" class="section">
+            <h2 class="section-title">Projekty</h2>
+            <p class="section-sub placeholder-note">✏️ <em>Doplň své skutečné projekty níže.</em></p>
+            <div class="projects-grid">
+                <article class="project-card">
+                    <div class="project-card__header">
+                        <span class="project-icon">🚀</span>
+                        <div class="project-tags">
+                            <span class="tag-chip">HTML</span>
+                            <span class="tag-chip">CSS</span>
+                            <span class="tag-chip">JS</span>
+                        </div>
+                    </div>
+                    <h3 class="project-title">Osobní web</h3>
+                    <p class="project-desc">Tento web — tmavý, hvězdičkový, built from scratch.</p>
+                    <a class="project-link" href="https://github.com/stepanhendrych/mujWeb" target="_blank" rel="noopener">GitHub →</a>
+                </article>
+
+                <article class="project-card project-card--placeholder">
+                    <div class="project-card__header">
+                        <span class="project-icon">📦</span>
+                        <div class="project-tags">
+                            <span class="tag-chip tag-chip--dim">???</span>
+                        </div>
+                    </div>
+                    <h3 class="project-title">Projekt #2</h3>
+                    <p class="project-desc placeholder-note">✏️ Placeholder — doplň název, popis a odkaz.</p>
+                    <span class="project-link project-link--dim">Brzy →</span>
+                </article>
+
+                <article class="project-card project-card--placeholder">
+                    <div class="project-card__header">
+                        <span class="project-icon">📦</span>
+                        <div class="project-tags">
+                            <span class="tag-chip tag-chip--dim">???</span>
+                        </div>
+                    </div>
+                    <h3 class="project-title">Projekt #3</h3>
+                    <p class="project-desc placeholder-note">✏️ Placeholder — doplň název, popis a odkaz.</p>
+                    <span class="project-link project-link--dim">Brzy →</span>
+                </article>
+
+                <article class="project-card project-card--placeholder">
+                    <div class="project-card__header">
+                        <span class="project-icon">📦</span>
+                        <div class="project-tags">
+                            <span class="tag-chip tag-chip--dim">???</span>
+                        </div>
+                    </div>
+                    <h3 class="project-title">Projekt #4</h3>
+                    <p class="project-desc placeholder-note">✏️ Placeholder — doplň název, popis a odkaz.</p>
+                    <span class="project-link project-link--dim">Brzy →</span>
+                </article>
+            </div>
+        </section>
+
+        <!-- ═══════════════════ GADGETS / WIDGETY ═══════════════════ -->
+        <section id="gadgets" class="section">
+            <h2 class="section-title">Widgety &amp; Gadgets</h2>
+            <p class="section-sub placeholder-note">✏️ <em>Nahraď <code>stepanhendrych</code> svým GitHub uživatelským jménem a aktivuj Spotify widget níže.</em></p>
+
+            <div class="gadgets-grid">
+
+                <!-- GitHub Stats -->
+                <div class="gadget-card">
+                    <div class="gadget-card__label">
+                        <span>📊</span> GitHub Stats
+                    </div>
+                    <img
+                        class="github-stats-img"
+                        src="https://github-readme-stats.vercel.app/api?username=stepanhendrych&show_icons=true&theme=tokyonight&hide_border=true&bg_color=00000000&title_color=7ee8fa&icon_color=9a7eff&text_color=e6eef8&count_private=true"
+                        alt="GitHub statistiky Štěpána Hendrycha"
+                        loading="lazy"
+                        onerror="this.closest('.gadget-card').classList.add('gadget-card--error')"
+                    >
+                    <img
+                        class="github-stats-img"
+                        src="https://github-readme-stats.vercel.app/api/top-langs/?username=stepanhendrych&layout=compact&theme=tokyonight&hide_border=true&bg_color=00000000&title_color=7ee8fa&text_color=e6eef8&langs_count=6"
+                        alt="Nejpoužívanější jazyky"
+                        loading="lazy"
+                        onerror="this.closest('.gadget-card').classList.add('gadget-card--error')"
+                    >
+                    <div class="gadget-card__error-msg">⚠️ GitHub Stats se nepodařilo načíst. Zkontroluj username.</div>
+                </div>
+
+                <!-- Currently Learning -->
+                <div class="gadget-card gadget-card--learning">
+                    <div class="gadget-card__label"><span>📚</span> Aktuálně se učím</div>
+                    <ul class="learning-list">
+                        <li>
+                            <span class="learning-dot" style="--c:var(--accent)"></span>
+                            Node.js
+                            <span class="learning-progress">██████░░░░ 60 %</span>
+                        </li>
+                        <li>
+                            <span class="learning-dot" style="--c:var(--accent-2)"></span>
+                            React
+                            <span class="learning-progress">███░░░░░░░ 30 %</span>
+                        </li>
+                        <li>
+                            <span class="learning-dot" style="--c:#f7c948"></span>
+                            Docker
+                            <span class="learning-progress">████░░░░░░ 40 %</span>
+                        </li>
+                        <li class="placeholder-note">✏️ <em>Uprav seznam dle sebe</em></li>
+                    </ul>
+                </div>
+
+                <!-- Discord -->
+                <div class="gadget-card gadget-card--discord">
+                    <div class="gadget-card__label"><span>💬</span> Discord — třídní server</div>
+                    <iframe
+                        src="https://discord.com/widget?id=1414512026885034037&theme=dark"
+                        allowtransparency="true"
+                        frameborder="0"
+                        title="Discord třídní server"
+                        sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"
+                        loading="lazy">
+                    </iframe>
+                </div>
+
+                <!-- Spotify Now Playing — placeholder -->
+                <div class="gadget-card gadget-card--spotify gadget-card--placeholder-widget">
+                    <div class="gadget-card__label"><span>🎵</span> Spotify — Now Playing</div>
+                    <div class="spotify-placeholder">
+                        <div class="spotify-album-art" aria-hidden="true">🎵</div>
+                        <div class="spotify-info">
+                            <p class="spotify-track placeholder-note">✏️ <em>Název skladby</em></p>
+                            <p class="spotify-artist placeholder-note">✏️ <em>Interpret</em></p>
+                            <div class="spotify-bar">
+                                <div class="spotify-bar__fill"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="gadget-hint">
+                        💡 Aktivace: Nasaď
+                        <a href="https://github.com/novatorem/novatorem" target="_blank" rel="noopener">novatorem/novatorem</a>
+                        nebo
+                        <a href="https://github.com/kittinan/spotify-github-profile" target="_blank" rel="noopener">kittinan/spotify-github-profile</a>
+                        a vlož sem svůj embed URL.
+                    </p>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ═══════════════════ KONTAKT ═══════════════════ -->
+        <section id="contact" class="section">
+            <h2 class="section-title">Kontakt</h2>
+            <p class="section-sub">Chceš se spojit? Napiš mi.</p>
+            <div class="contact-links">
+                <a class="contact-card" href="https://github.com/stepanhendrych" target="_blank" rel="noopener">
+                    <span class="contact-card__icon">🐙</span>
+                    <span class="contact-card__label">GitHub</span>
+                </a>
+                <a class="contact-card contact-card--placeholder" href="mailto:tvuj@email.cz">
+                    <span class="contact-card__icon">✉️</span>
+                    <span class="contact-card__label placeholder-note">✏️ E-mail</span>
+                </a>
+                <a class="contact-card contact-card--placeholder" href="#contact" aria-label="LinkedIn placeholder — doplň odkaz">
+                    <span class="contact-card__icon">💼</span>
+                    <span class="contact-card__label placeholder-note">✏️ LinkedIn</span>
+                </a>
+                <a class="contact-card contact-card--placeholder" href="#contact" aria-label="Discord placeholder — doplň odkaz">
+                    <span class="contact-card__icon">💬</span>
+                    <span class="contact-card__label placeholder-note">✏️ Discord DM</span>
+                </a>
+            </div>
+        </section>
+
+    </main>
 
     <footer class="site-footer">
         <small>© <span id="year"></span> Henyx — Crafted in the dark.</small>

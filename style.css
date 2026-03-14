@@ -574,6 +574,8 @@ body {
   color: rgba(230, 238, 248, 0.82);
   font-size: 0.84rem;
   line-height: 1.5;
+  white-space: pre-line;
+  overflow-wrap: anywhere;
 }
 .discord-presence__error {
   margin: 0;

@@ -199,21 +199,33 @@ if (lanyardWidget) {
         statusDotEl.classList.add(`is-${status in statusMap ? status : 'offline'}`);
     }
 
+    function normalizeActivityPart(value) {
+        return String(value || '').trim().replace(/(?:\.{3}|…)+$/, '');
+    }
+
     function buildActivityText(data) {
         if (data.listening_to_spotify && data.spotify) {
-            return `Právě poslouchá: ${data.spotify.song} - ${data.spotify.artist}`;
+            const song = normalizeActivityPart(data.spotify.song);
+            const artist = normalizeActivityPart(data.spotify.artist);
+            return `Právě poslouchá:\n${song} - ${artist}`;
         }
 
         const activities = Array.isArray(data.activities) ? data.activities : [];
         const mainActivity = activities.find(activity => activity.type !== 4);
         if (mainActivity) {
-            const parts = [mainActivity.name, mainActivity.details, mainActivity.state].filter(Boolean);
-            return `Aktivita: ${parts.join(' | ')}`;
+            const activityName = normalizeActivityPart(mainActivity.name);
+            const details = normalizeActivityPart(mainActivity.details);
+            const state = normalizeActivityPart(mainActivity.state);
+            const lines = [activityName, details, state].filter(Boolean);
+
+            return lines.length > 0
+                ? `Aktivita:\n${lines.join('\n')}`
+                : 'Právě bez aktivity';
         }
 
         const customStatus = activities.find(activity => activity.type === 4 && activity.state);
         if (customStatus) {
-            return `Status: ${customStatus.state}`;
+            return `Status:\n${normalizeActivityPart(customStatus.state)}`;
         }
 
         return 'Právě bez aktivity';

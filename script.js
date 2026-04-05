@@ -1,27 +1,39 @@
+// Constants
+const starCount = 180;
+const NUCLEAR_EASTER_EGG_CHANCE = 0.02;
+const NUCLEAR_EASTER_EGG_DURATION_MS = 4400;
+
 // ── Starfield animation ──────────────────────────────────────────────────────
 const canvas = document.getElementById('starfield');
 const ctx = canvas.getContext('2d');
+const stars = [];
 
 function resizeCanvas() {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
 }
 
-resizeCanvas();
-window.addEventListener('resize', resizeCanvas);
+function populateStars() {
+    stars.length = 0;
 
-const stars = [];
-const starCount = 180;
-
-for (let i = 0; i < starCount; i++) {
-    stars.push({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        radius: Math.random() * 1.5,
-        opacity: Math.random() * 0.5 + 0.3,
-        twinkleSpeed: Math.random() * 0.02 + 0.005
-    });
+    for (let i = 0; i < starCount; i++) {
+        stars.push({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height,
+            radius: Math.random() * 1.5,
+            opacity: Math.random() * 0.5 + 0.3,
+            twinkleSpeed: Math.random() * 0.02 + 0.005
+        });
+    }
 }
+
+function handleResize() {
+    resizeCanvas();
+    populateStars();
+}
+
+handleResize();
+window.addEventListener('resize', handleResize);
 
 let time = 0;
 
@@ -42,6 +54,36 @@ function animate() {
 }
 
 animate();
+
+// ── Secret nuclear easter egg ───────────────────────────────────────────────
+const nuclearEasterEgg = document.getElementById('nuclear-easter-egg');
+
+function maybeTriggerNuclearEasterEgg() {
+    const roll = Math.random();
+
+    if (!nuclearEasterEgg) {
+        return;
+    }
+
+    if (roll >= NUCLEAR_EASTER_EGG_CHANCE) {
+        return;
+    }
+
+    nuclearEasterEgg.hidden = false;
+    document.body.classList.add('nuclear-easter-egg--active');
+
+    requestAnimationFrame(() => {
+        nuclearEasterEgg.classList.add('is-active');
+    });
+
+    window.setTimeout(() => {
+        nuclearEasterEgg.classList.remove('is-active');
+        document.body.classList.remove('nuclear-easter-egg--active');
+        nuclearEasterEgg.hidden = true;
+    }, NUCLEAR_EASTER_EGG_DURATION_MS);
+}
+
+maybeTriggerNuclearEasterEgg();
 
 // ── Year ─────────────────────────────────────────────────────────────────────
 document.getElementById('year').textContent = new Date().getFullYear();

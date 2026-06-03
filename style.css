@@ -455,6 +455,29 @@ body.nuclear-easter-egg--active .site-footer {
   letter-spacing: 0.02em;
 }
 
+.favorite-quotes__featured {
+  margin: 0;
+  align-self: stretch;
+}
+
+.favorite-quotes .section-quote {
+  min-height: 220px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.favorite-quotes .section-quote.is-updating {
+  will-change: transform, opacity;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .favorite-quotes .section-quote {
+    transition: none !important;
+    animation: none !important;
+  }
+}
+
 @media (max-width: 640px) {
   .section-quote {
     margin: 20px 12px;

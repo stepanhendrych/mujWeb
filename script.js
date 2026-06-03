@@ -88,6 +88,156 @@ maybeTriggerNuclearEasterEgg();
 // ── Year ─────────────────────────────────────────────────────────────────────
 document.getElementById('year').textContent = new Date().getFullYear();
 
+// ── Favorite quotes from file ────────────────────────────────────────────────
+const featuredQuoteEl = document.getElementById('featured-quote');
+const featuredQuoteAuthorEl = document.getElementById('featured-quote-author');
+const quotesCardEl = document.getElementById('quote-card');
+const QUOTE_ROTATION_INTERVAL_MS = 5500;
+const FAVORITE_QUOTES_SOURCE_URL = 'https://my.microsoftpersonalcontent.com/personal/963a7b6ac461305f/_layouts/15/download.aspx?UniqueId=356e98cf-da57-4a9e-89c9-beae9a087444&Translate=false&tempauth=v1e.eyJzaXRlaWQiOiIwYWQyMTY0OS0zZWRiLTRiNjktOWE5My1mOTUzMjVhZTZiYzYiLCJhdWQiOiIwMDAwMDAwMy0wMDAwLTBmZjEtY2UwMC0wMDAwMDAwMDAwMDAvbXkubWljcm9zb2Z0cGVyc29uYWxjb250ZW50LmNvbUA5MTg4MDQwZC02YzY3LTRjNWItYjExMi0zNmEzMDRiNjZkYWQiLCJleHAiOiIxNzc5NjQwMzAwIn0.g1cMJ8Oc-KWdolSKP8oJqpYzPe5gwXsUeS2oUXLpYf_pguy8adr2hr-qjw_9jLwFwpIDrag7Uj6QtAxUFrDZaIfRzibli2gq611JybEqF4PP_auxIEogFcW7ZeYto8C3Xkauw_xmu2F3MudtC8Lkn_uUV6Bo-DQN2QW8Wvc0pXXJe_bhP48vFj0Pb6tVKA5ZLTWmf4Q7DVbI6nsTapOsEMjIxReTucQjtk-uz_UZrBo6lC7sk27S5-RF-0mSM3prR5Kfa-sXJV2a4gQcXMO12tKHoO4-a0kqoJmBbOdhI24M0yTcgABy_KYUlK47LK3ozsE4DbSJG18FQTU75qpeddnvtS32jVyMW3b7CiJO6fHiGWDD_OZhu-9xYlNxZqFt3LBwaNL1sUvz36k8FDn8FQCbqwaUP_hHm66b7kykKvQfnf9tOpW3EbeZICxuEZ_F2Zt3C5cjbRhb2OJw418XVtvcnt1WIRKCTtP1BsxmjlsRargS3_dNOlvtd-TBA-UC7O0mqxTezWanP1ZVqAzIyQ.Sh-qsReoSilL-9Tm9t-WfvDvlWqL6iYDjzQ59x2TS00&ApiVersion=2.0';
+
+let favoriteQuotes = [];
+let currentQuoteIndex = 0;
+let rotationTimerId = null;
+let isQuoteTransitionRunning = false;
+
+function parseQuoteLine(line) {
+    const cleanedLine = line.trim();
+    if (!cleanedLine) {
+        return null;
+    }
+
+    const separatorIndex = cleanedLine.lastIndexOf(' -');
+    if (separatorIndex === -1) {
+        return {
+            quote: cleanedLine,
+            author: ''
+        };
+    }
+
+    return {
+        quote: cleanedLine.slice(0, separatorIndex).trim(),
+        author: cleanedLine.slice(separatorIndex + 2).trim()
+    };
+}
+
+function renderQuoteAtIndex(index, animate = true) {
+    if (!featuredQuoteEl || !featuredQuoteAuthorEl) {
+        return;
+    }
+
+    if (!favoriteQuotes.length) {
+        throw new Error('No quotes found in favQuotes.txt');
+    }
+
+    const normalizedIndex = ((index % favoriteQuotes.length) + favoriteQuotes.length) % favoriteQuotes.length;
+    const featuredQuote = favoriteQuotes[normalizedIndex];
+    const updateQuoteContent = () => {
+        featuredQuoteEl.textContent = featuredQuote.quote;
+        featuredQuoteAuthorEl.textContent = featuredQuote.author || 'Neznámý autor';
+    };
+
+    if (!animate || !quotesCardEl || typeof quotesCardEl.animate !== 'function') {
+        updateQuoteContent();
+        return;
+    }
+
+    if (isQuoteTransitionRunning) {
+        return;
+    }
+
+    isQuoteTransitionRunning = true;
+
+    const exitAnimation = quotesCardEl.animate([
+        { opacity: 1, transform: 'translateY(0) scale(1)' },
+        { opacity: 0, transform: 'translateY(14px) scale(0.985)' }
+    ], {
+        duration: 220,
+        easing: 'ease-in',
+        fill: 'forwards'
+    });
+
+    exitAnimation.finished
+        .then(() => {
+            updateQuoteContent();
+            const enterAnimation = quotesCardEl.animate([
+                { opacity: 0, transform: 'translateY(-14px) scale(0.985)' },
+                { opacity: 1, transform: 'translateY(0) scale(1)' }
+            ], {
+                duration: 320,
+                easing: 'ease-out',
+                fill: 'forwards'
+            });
+
+            return enterAnimation.finished;
+        })
+        .catch(() => {
+            updateQuoteContent();
+        })
+        .finally(() => {
+            isQuoteTransitionRunning = false;
+        });
+}
+
+function startQuoteRotation() {
+    if (favoriteQuotes.length === 0) {
+        return;
+    }
+
+    renderQuoteAtIndex(currentQuoteIndex, false);
+
+    if (favoriteQuotes.length === 1) {
+        return;
+    }
+
+    rotationTimerId = window.setInterval(() => {
+        currentQuoteIndex = (currentQuoteIndex + 1) % favoriteQuotes.length;
+        renderQuoteAtIndex(currentQuoteIndex, true);
+    }, QUOTE_ROTATION_INTERVAL_MS);
+}
+
+function stopQuoteRotation() {
+    if (rotationTimerId !== null) {
+        window.clearInterval(rotationTimerId);
+        rotationTimerId = null;
+    }
+}
+
+async function loadFavoriteQuotes() {
+    if (!featuredQuoteEl || !featuredQuoteAuthorEl) {
+        return;
+    }
+
+    stopQuoteRotation();
+
+    try {
+        const response = await fetch(FAVORITE_QUOTES_SOURCE_URL, { cache: 'no-store' });
+        if (!response.ok) {
+            throw new Error(`Quotes request failed: ${response.status}`);
+        }
+
+        const text = await response.text();
+        const quotes = text
+            .split(/\r?\n/)
+            .map(parseQuoteLine)
+            .filter(Boolean);
+
+        if (!quotes.length) {
+            throw new Error('No quotes found in favorite quotes source');
+        }
+
+        favoriteQuotes = quotes;
+        currentQuoteIndex = 0;
+        startQuoteRotation();
+    } catch (error) {
+        favoriteQuotes = [];
+        stopQuoteRotation();
+        featuredQuoteEl.textContent = 'Citáty se nepodařilo načíst.';
+        featuredQuoteAuthorEl.textContent = 'favQuotes.txt';
+    }
+}
+
+loadFavoriteQuotes();
+
 // ── Typewriter effect ─────────────────────────────────────────────────────────
 const phrases = [
     'budoucí vývojář',

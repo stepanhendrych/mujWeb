@@ -210,12 +210,24 @@ async function loadFavoriteQuotes() {
     stopQuoteRotation();
 
     try {
-        const response = await fetch(FAVORITE_QUOTES_SOURCE_URL, { cache: 'no-store' });
-        if (!response.ok) {
-            throw new Error(`Quotes request failed: ${response.status}`);
-        }
+        // Try to fetch from the provided URL first
+        let response = await fetch(FAVORITE_QUOTES_SOURCE_URL, { cache: 'no-store' });
+        let text = '';
 
-        const text = await response.text();
+        if (!response.ok) {
+            // Fall back to reading from a local file if the URL fails
+            try {
+                response = await fetch('./favQuotes.txt', { cache: 'no-store' });
+                if (!response.ok) {
+                    throw new Error('No quotes found in either source');
+                }
+                text = await response.text();
+            } catch (error) {
+                throw new Error('Failed to load quotes from local file: ' + error.message);
+            }
+        } else {
+            text = await response.text();
+        }
         const quotes = text
             .split(/\r?\n/)
             .map(parseQuoteLine)

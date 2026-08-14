@@ -93,7 +93,6 @@ const featuredQuoteEl = document.getElementById('featured-quote');
 const featuredQuoteAuthorEl = document.getElementById('featured-quote-author');
 const quotesCardEl = document.getElementById('quote-card');
 const QUOTE_ROTATION_INTERVAL_MS = 5500;
-const FAVORITE_QUOTES_SOURCE_URL = 'https://my.microsoftpersonalcontent.com/personal/963a7b6ac461305f/_layouts/15/download.aspx?UniqueId=356e98cf-da57-4a9e-89c9-beae9a087444&Translate=false&tempauth=v1e.eyJzaXRlaWQiOiIwYWQyMTY0OS0zZWRiLTRiNjktOWE5My1mOTUzMjVhZTZiYzYiLCJhdWQiOiIwMDAwMDAwMy0wMDAwLTBmZjEtY2UwMC0wMDAwMDAwMDAwMDAvbXkubWljcm9zb2Z0cGVyc29uYWxjb250ZW50LmNvbUA5MTg4MDQwZC02YzY3LTRjNWItYjExMi0zNmEzMDRiNjZkYWQiLCJleHAiOiIxNzc5NjQwMzAwIn0.g1cMJ8Oc-KWdolSKP8oJqpYzPe5gwXsUeS2oUXLpYf_pguy8adr2hr-qjw_9jLwFwpIDrag7Uj6QtAxUFrDZaIfRzibli2gq611JybEqF4PP_auxIEogFcW7ZeYto8C3Xkauw_xmu2F3MudtC8Lkn_uUV6Bo-DQN2QW8Wvc0pXXJe_bhP48vFj0Pb6tVKA5ZLTWmf4Q7DVbI6nsTapOsEMjIxReTucQjtk-uz_UZrBo6lC7sk27S5-RF-0mSM3prR5Kfa-sXJV2a4gQcXMO12tKHoO4-a0kqoJmBbOdhI24M0yTcgABy_KYUlK47LK3ozsE4DbSJG18FQTU75qpeddnvtS32jVyMW3b7CiJO6fHiGWDD_OZhu-9xYlNxZqFt3LBwaNL1sUvz36k8FDn8FQCbqwaUP_hHm66b7kykKvQfnf9tOpW3EbeZICxuEZ_F2Zt3C5cjbRhb2OJw418XVtvcnt1WIRKCTtP1BsxmjlsRargS3_dNOlvtd-TBA-UC7O0mqxTezWanP1ZVqAzIyQ.Sh-qsReoSilL-9Tm9t-WfvDvlWqL6iYDjzQ59x2TS00&ApiVersion=2.0';
 
 let favoriteQuotes = [];
 let currentQuoteIndex = 0;
@@ -210,24 +209,12 @@ async function loadFavoriteQuotes() {
     stopQuoteRotation();
 
     try {
-        // Try to fetch from the provided URL first
-        let response = await fetch(FAVORITE_QUOTES_SOURCE_URL, { cache: 'no-store' });
-        let text = '';
-
+        const response = await fetch('./favQuotes.txt', { cache: 'no-store' });
         if (!response.ok) {
-            // Fall back to reading from a local file if the URL fails
-            try {
-                response = await fetch('./favQuotes.txt', { cache: 'no-store' });
-                if (!response.ok) {
-                    throw new Error('No quotes found in either source');
-                }
-                text = await response.text();
-            } catch (error) {
-                throw new Error('Failed to load quotes from local file: ' + error.message);
-            }
-        } else {
-            text = await response.text();
+            throw new Error('No quotes found in favQuotes.txt');
         }
+
+        const text = await response.text();
         const quotes = text
             .split(/\r?\n/)
             .map(parseQuoteLine)
